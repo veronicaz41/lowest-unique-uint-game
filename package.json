@@ -1,0 +1,15 @@
+{
+  "name": "lowest-unique-uint-game",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "compile": "truffle compile",
+    "migrate": "truffle migrate",
+    "test": "truffle test"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "truffle-hdwallet-provider": "^1.0.5"
+  }
+}
