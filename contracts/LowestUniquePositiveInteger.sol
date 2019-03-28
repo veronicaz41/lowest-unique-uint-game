@@ -1,6 +1,6 @@
 pragma solidity ^0.5.0;
 
-
+// The most basic demo version
 contract LowestUniquePositiveInteger {
   mapping(address => uint256) private userInputs;
 
