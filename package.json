@@ -10,6 +10,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "tabookey-gasless": "^0.3.3-a",
     "truffle-hdwallet-provider": "^1.0.5"
   }
 }
