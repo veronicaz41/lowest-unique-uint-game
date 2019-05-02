@@ -11,6 +11,7 @@ const App = {
     const { web3 } = this;
     const relayProvider = new RelayProvider(web3.currentProvider, {
       force_gasLimit: 5000000,
+      force_gasPrice: 1200000000,
       verbose: true,
       txfee: 12,
     });
@@ -38,7 +39,7 @@ const App = {
 
   getInput: async function() {
     const { getInput } = this.contract.methods;
-    const input = await getInput().call();
+    const input = await getInput().call({from: this.account});
 
     // TODO: if we haven't commit any input yet, this would show 0
 
