@@ -1,5 +1,6 @@
 import Web3 from "web3";
-import LUPIArtifact from "../../build/contracts/LowestUniquePositiveInteger.json";
+import LUPIRelayVersionArtifact from "../../build/contracts/LUPIRelayVersion.json";
+import { RelayProvider } from 'tabookey-gasless'
 
 const App = {
   web3: null,
@@ -8,12 +9,19 @@ const App = {
 
   start: async function() {
     const { web3 } = this;
+    const relayProvider = new RelayProvider(web3.currentProvider, {
+      force_gasLimit: 5000000,
+      verbose: true,
+      txfee: 12,
+    });
+    web3.setProvider(relayProvider);
+
     try {
       // get contract instance
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = LUPIArtifact.networks[networkId];
+      const deployedNetwork = LUPIRelayVersionArtifact.networks[networkId];
       this.contract = new web3.eth.Contract(
-        LUPIArtifact.abi,
+        LUPIRelayVersionArtifact.abi,
         deployedNetwork.address,
       );
 
@@ -24,6 +32,7 @@ const App = {
       this.getInput();
     } catch (error) {
       console.error("Could not connect to contract or chain.");
+      console.error(error);
     }
   },
 
@@ -41,7 +50,7 @@ const App = {
     const { commitInput } = this.contract.methods;
     // input validation
     const inputStr = document.getElementById("input").value;
-    const input = Math.floor(Number(inputStr));
+    const input = parseInt(inputStr);
     if (input == Infinity || String(input) !== inputStr || input <= 0) {
       this.setStatus("Please input a positive integer");
       return;
